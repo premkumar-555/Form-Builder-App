@@ -14,13 +14,19 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
+import { useNavigate } from "react-router-dom";
 
 const drawerWidth = 240;
-const navItems = ["Create form", "Profile", "Logout"];
+const navItems = [
+  { name: "Create form", path: "create_form" },
+  { name: "Profile", path: "profile" },
+  { name: "Logout", path: "logout" },
+];
 
 function NavBar(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const navigate = useNavigate();
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
@@ -36,7 +42,7 @@ function NavBar(props) {
         {navItems.map((item) => (
           <ListItem key={item} disablePadding>
             <ListItemButton sx={{ textAlign: "center" }}>
-              <ListItemText primary={item} />
+              <ListItemText primary={item?.name} />
             </ListItemButton>
           </ListItem>
         ))}
@@ -83,7 +89,21 @@ function NavBar(props) {
             {navItems.map((item) => (
               <Button
                 key={item}
+                onClick={() => {
+                  switch (item?.path) {
+                    case "create_form":
+                      navigate(item?.path);
+                      break;
+                    case "profile":
+                      alert("profile");
+                      break;
+                    default:
+                      alert("logout");
+                      break;
+                  }
+                }}
                 sx={{
+                  textDecoration: "none",
                   color: "#fff",
                   ml: "1.5rem",
                   outline: "none",
@@ -96,7 +116,7 @@ function NavBar(props) {
                   },
                 }}
               >
-                {item}
+                {item?.name}
               </Button>
             ))}
           </Box>
