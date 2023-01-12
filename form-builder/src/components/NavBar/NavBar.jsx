@@ -40,7 +40,7 @@ function NavBar(props) {
       <Divider />
       <List>
         {navItems.map((item) => (
-          <ListItem key={item} disablePadding>
+          <ListItem key={item.name} disablePadding>
             <ListItemButton sx={{ textAlign: "center" }}>
               <ListItemText primary={item?.name} />
             </ListItemButton>
@@ -88,7 +88,7 @@ function NavBar(props) {
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
             {navItems.map((item) => (
               <Button
-                key={item}
+                key={item?.name}
                 onClick={() => {
                   switch (item?.path) {
                     case "create_form":
