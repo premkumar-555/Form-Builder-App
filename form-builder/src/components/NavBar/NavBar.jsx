@@ -15,6 +15,16 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
+import Logout from "../logout/Logout";
+import {
+  getAuth,
+  signInWithPopup,
+  GoogleAuthProvider,
+  signOut,
+  onAuthStateChanged,
+} from "firebase/auth";
+import { firebase } from "../../Firebase/Config.js";
+import CustomizedDialogs from "../Reusable-assets/Modal";
 
 const drawerWidth = 240;
 const navItems = [
@@ -24,12 +34,37 @@ const navItems = [
 ];
 
 function NavBar(props) {
-  const { window } = props;
+  const [open, setOpen] = React.useState(false);
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const { window } = props;
   const navigate = useNavigate();
+  const element = React.useRef("");
+  const auth = getAuth(firebase);
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
+  };
+  const handleClicks = (value) => {
+    switch (value) {
+      case "create_form":
+        navigate(item?.path);
+        break;
+      case "profile":
+        alert("profile");
+        break;
+      default:
+        element.current = <Logout setOpen={setOpen} />;
+        setOpen(true);
+        // logOut();
+        break;
+    }
+  };
+  const logOut = () => {
+    signOut(auth)
+      .then((result) => {
+        console.log("signout");
+      })
+      .catch((err) => console.log(err.message));
   };
 
   const drawer = (
@@ -56,6 +91,11 @@ function NavBar(props) {
   return (
     <Box sx={{ display: "flex", position: "relative" }}>
       <CssBaseline />
+      <CustomizedDialogs
+        open={open}
+        setOpen={setOpen}
+        element={element.current}
+      />
       <AppBar
         component="nav"
         sx={{
@@ -90,17 +130,7 @@ function NavBar(props) {
               <Button
                 key={item?.name}
                 onClick={() => {
-                  switch (item?.path) {
-                    case "create_form":
-                      navigate(item?.path);
-                      break;
-                    case "profile":
-                      alert("profile");
-                      break;
-                    default:
-                      alert("logout");
-                      break;
-                  }
+                  handleClicks(item?.path);
                 }}
                 sx={{
                   textDecoration: "none",
