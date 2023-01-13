@@ -53,7 +53,7 @@ function NavBar(props) {
         alert("profile");
         break;
       default:
-        element.current = <Logout setOpen={setOpen} />;
+        element.current = <Logout setOpen={setOpen} logOut={logOut} />;
         setOpen(true);
         // logOut();
         break;
@@ -62,7 +62,8 @@ function NavBar(props) {
   const logOut = () => {
     signOut(auth)
       .then((result) => {
-        console.log("signout");
+        // dispatch()
+        // console.log("signout");
       })
       .catch((err) => console.log(err.message));
   };

@@ -15,6 +15,9 @@ import {
 } from "firebase/auth";
 import { firebase } from "../../Firebase/Config.js";
 import { useNavigate } from "react-router-dom";
+import { logIn, logOut } from "../Redux/User/action.js";
+console.log("logIn ", logIn);
+import { useDispatch } from "react-redux";
 
 const flexBox = {
   display: "flex",
@@ -33,12 +36,14 @@ const bull = (
 export default function BasicCard() {
   const auth = getAuth(firebase);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const signIn = () => {
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider)
       .then((result) => {
+        dispatch(logIn(result?.user?.providerData[0]));
         navigate("/");
-        console.log(result);
+        // console.log(result);
       })
       .catch((error) => {
         console.log("error ", error.message);

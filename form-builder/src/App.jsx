@@ -25,7 +25,7 @@ function App() {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         const userAccount = user;
-        console.log("user ", userAccount);
+        // console.log("user ", userAccount);
       } else {
         navigate("login");
       }
