@@ -33,7 +33,6 @@ export default function CustomizedDialogs({ open, setOpen, element }) {
         sx={{
           position: "relative",
           top: 100,
-          boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
         }}
         maxwidth="lg"
         onClose={handleClose}
