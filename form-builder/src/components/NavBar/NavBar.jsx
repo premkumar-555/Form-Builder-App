@@ -16,6 +16,7 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 import Logout from "../logout/Logout";
+import Profile from "../UserProfile/Profile";
 import {
   getAuth,
   signInWithPopup,
@@ -55,12 +56,12 @@ function NavBar(props) {
         navigate(item?.path);
         break;
       case "profile":
-        alert("profile");
+        setOpen(true);
+        element.current = <Profile setOpen={setOpen} />;
         break;
       default:
-        element.current = <Logout setOpen={setOpen} signOut={sinOut} />;
         setOpen(true);
-        // logOut();
+        element.current = <Logout setOpen={setOpen} signOut={sinOut} />;
         break;
     }
   };
