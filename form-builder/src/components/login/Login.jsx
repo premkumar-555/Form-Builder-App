@@ -6,11 +6,9 @@ import {
   signOut,
   onAuthStateChanged,
 } from "firebase/auth";
-import { firebase } from "../../Firebase/Config.js";
 import BasicCard from "./Card";
 
 const Login = () => {
-  const auth = getAuth(firebase);
   return <BasicCard />;
 };
 

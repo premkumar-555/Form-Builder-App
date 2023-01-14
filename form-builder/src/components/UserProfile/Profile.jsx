@@ -29,10 +29,12 @@ const Profile = ({ setOpen }) => {
           sx={{ width: 125, height: 125, border: "3px solid skyblue" }}
         />
         <Typography gutterBottom>
-          <strong>Name : </strong> <span>{userName}</span>
+          <strong>Name : </strong>{" "}
+          <span style={{ fontWeight: "500" }}>{userName}</span>
         </Typography>
         <Typography gutterBottom>
-          <strong>EmailId : </strong> <span>{userEmail}</span>
+          <strong>EmailId : </strong>{" "}
+          <span style={{ fontWeight: "500" }}>{userEmail}</span>
         </Typography>
       </DialogContent>
     </Box>

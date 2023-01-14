@@ -14,7 +14,6 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import { useNavigate } from "react-router-dom";
 import Logout from "../logout/Logout";
 import Profile from "../UserProfile/Profile";
 import {
@@ -28,7 +27,6 @@ import { firebase } from "../../Firebase/Config.js";
 import CustomizedDialogs from "../Reusable-assets/Modal";
 import { logIn, logOut } from "../Redux/User/action.js";
 import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
 
 const drawerWidth = 240;
 const navItems = [
@@ -41,11 +39,9 @@ function NavBar(props) {
   const [open, setOpen] = React.useState(false);
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const { window } = props;
-  const navigate = useNavigate();
   const element = React.useRef("");
   const auth = getAuth(firebase);
   const dispatch = useDispatch();
-  const { isLoggedIn } = useSelector((state) => state.user);
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
@@ -72,9 +68,6 @@ function NavBar(props) {
       })
       .catch((err) => console.log(err.message));
   };
-  useEffect(() => {
-    !isLoggedIn && navigate("/login");
-  }, [isLoggedIn]);
 
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>

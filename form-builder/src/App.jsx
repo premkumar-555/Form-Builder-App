@@ -23,10 +23,10 @@ function App() {
   const { isLoggedIn } = useSelector((state) => state.user);
   useEffect(() => {
     isLoggedIn ? navigate("/") : navigate("login");
-  }, []);
+  }, [isLoggedIn]);
   return (
     <div className="App">
-      <NavBar />
+      {isLoggedIn && <NavBar />}
       <Box sx={containerStyle}>
         <Pages />
       </Box>

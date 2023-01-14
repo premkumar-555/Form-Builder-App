@@ -14,10 +14,8 @@ import {
   onAuthStateChanged,
 } from "firebase/auth";
 import { firebase } from "../../Firebase/Config.js";
-import { useNavigate } from "react-router-dom";
 import { logIn, logOut } from "../Redux/User/action.js";
 import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
 
 const flexBox = {
   display: "flex",
@@ -35,9 +33,7 @@ const bull = (
 
 export default function BasicCard() {
   const auth = getAuth(firebase);
-  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { isLoggedIn } = useSelector((state) => ({ ...state.user }));
 
   const signIn = () => {
     const provider = new GoogleAuthProvider();
@@ -49,10 +45,6 @@ export default function BasicCard() {
         console.log("error ", error.message);
       });
   };
-
-  useEffect(() => {
-    isLoggedIn && navigate("/");
-  }, [isLoggedIn]);
 
   return (
     <Card sx={{ width: "25%", margin: "auto" }}>
