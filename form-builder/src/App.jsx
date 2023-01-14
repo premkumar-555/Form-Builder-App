@@ -8,7 +8,7 @@ import { firebase, db } from "./Firebase/Config.js";
 import { collection, doc, getDocs } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
-
+import { useSelector } from "react-redux";
 const containerStyle = {
   width: "100%",
   padding: "1.5rem",
@@ -20,19 +20,9 @@ const containerStyle = {
 };
 function App() {
   const navigate = useNavigate();
-  const handleSignInFlow = () => {
-    const auth = getAuth();
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        const userAccount = user;
-        // console.log("user ", userAccount);
-      } else {
-        navigate("login");
-      }
-    });
-  };
+  const { isLoggedIn } = useSelector((state) => state.user);
   useEffect(() => {
-    handleSignInFlow();
+    isLoggedIn ? navigate("/") : navigate("login");
   }, []);
   return (
     <div className="App">

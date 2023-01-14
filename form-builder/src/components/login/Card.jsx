@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useEffect } from "react";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -16,8 +16,8 @@ import {
 import { firebase } from "../../Firebase/Config.js";
 import { useNavigate } from "react-router-dom";
 import { logIn, logOut } from "../Redux/User/action.js";
-console.log("logIn ", logIn);
 import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 const flexBox = {
   display: "flex",
@@ -37,18 +37,23 @@ export default function BasicCard() {
   const auth = getAuth(firebase);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { isLoggedIn } = useSelector((state) => ({ ...state.user }));
+
   const signIn = () => {
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider)
       .then((result) => {
         dispatch(logIn(result?.user?.providerData[0]));
-        navigate("/");
-        // console.log(result);
       })
       .catch((error) => {
         console.log("error ", error.message);
       });
   };
+
+  useEffect(() => {
+    isLoggedIn && navigate("/");
+  }, [isLoggedIn]);
+
   return (
     <Card sx={{ width: "25%", margin: "auto" }}>
       <CardContent>
@@ -67,7 +72,12 @@ export default function BasicCard() {
             src="https://img.icons8.com/fluency/48/null/google-logo.png"
             sx={{ width: 60, height: 60 }}
           />
-          <Button onClick={() => signIn()} size="large" variant="contained">
+          <Button
+            onClick={() => signIn()}
+            size="large"
+            variant="contained"
+            color="primary"
+          >
             Login with Google
           </Button>
         </Box>

@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -25,6 +25,9 @@ import {
 } from "firebase/auth";
 import { firebase } from "../../Firebase/Config.js";
 import CustomizedDialogs from "../Reusable-assets/Modal";
+import { logIn, logOut } from "../Redux/User/action.js";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 const drawerWidth = 240;
 const navItems = [
@@ -40,6 +43,8 @@ function NavBar(props) {
   const navigate = useNavigate();
   const element = React.useRef("");
   const auth = getAuth(firebase);
+  const dispatch = useDispatch();
+  const { isLoggedIn } = useSelector((state) => state.user);
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
@@ -53,20 +58,22 @@ function NavBar(props) {
         alert("profile");
         break;
       default:
-        element.current = <Logout setOpen={setOpen} logOut={logOut} />;
+        element.current = <Logout setOpen={setOpen} signOut={sinOut} />;
         setOpen(true);
         // logOut();
         break;
     }
   };
-  const logOut = () => {
+  const sinOut = () => {
     signOut(auth)
       .then((result) => {
-        // dispatch()
-        // console.log("signout");
+        dispatch(logOut());
       })
       .catch((err) => console.log(err.message));
   };
+  useEffect(() => {
+    !isLoggedIn && navigate("/login");
+  }, [isLoggedIn]);
 
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>

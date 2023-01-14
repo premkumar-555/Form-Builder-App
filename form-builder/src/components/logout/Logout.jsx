@@ -8,7 +8,7 @@ import {
 } from "@mui/material/";
 import BootstrapDialogTitle from "../Reusable-assets/BootstrapDialogTitle";
 
-const Logout = ({ setOpen, logOut }) => {
+const Logout = ({ setOpen, signOut }) => {
   return (
     <Box sx={{ width: "350px", height: "150px", padding: "0.5rem" }}>
       <BootstrapDialogTitle
@@ -20,7 +20,7 @@ const Logout = ({ setOpen, logOut }) => {
       <DialogActions>
         <Button
           onClick={() => {
-            logOut();
+            signOut();
             setOpen(false);
           }}
           variant="contained"
