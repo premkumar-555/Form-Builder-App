@@ -21,6 +21,7 @@ const containerStyle = {
 function App() {
   const navigate = useNavigate();
   const { isLoggedIn } = useSelector((state) => state.user);
+
   useEffect(() => {
     isLoggedIn ? navigate("/") : navigate("login");
   }, [isLoggedIn]);

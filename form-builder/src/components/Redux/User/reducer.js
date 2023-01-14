@@ -1,10 +1,10 @@
 import { LOGIN, LOGOUT } from "./action";
 
 const initState = {
-  userEmail: "",
-  userProfile: "",
-  userName: "",
-  isLoggedIn: false,
+  userEmail: JSON.parse(localStorage.getItem("user"))?.userEmail || "",
+  userProfile: JSON.parse(localStorage.getItem("user"))?.userProfile || "",
+  userName: JSON.parse(localStorage.getItem("user"))?.userName || "",
+  isLoggedIn: JSON.parse(localStorage.getItem("user"))?.isLoggedIn || false,
 };
 
 export const userReducer = (state = initState, { type, payload }) => {
@@ -19,14 +19,7 @@ export const userReducer = (state = initState, { type, payload }) => {
         userName: payload?.displayName,
         isLoggedIn: true,
       };
-      localStorage.setItem(
-        "user",
-        JSON.stringify({
-          userEmail: payload?.email,
-          userProfile: payload?.photoURL,
-          userName: payload?.displayName,
-        })
-      );
+      localStorage.setItem("user", JSON.stringify({ ...state }));
       return state;
       break;
     case LOGOUT:
@@ -37,7 +30,7 @@ export const userReducer = (state = initState, { type, payload }) => {
         userName: "",
         isLoggedIn: false,
       };
-      // console.log("state ", state);
+      localStorage.clear("user");
       return state;
       break;
     default:
