@@ -19,8 +19,8 @@ import { useDispatch } from "react-redux";
 
 const flexBox = {
   display: "flex",
-  width: "80%",
-  justifyContent: "space-evenly",
+  width: "85%",
+  justifyContent: "space-between",
 };
 const bull = (
   <Box
@@ -47,7 +47,14 @@ export default function BasicCard() {
   };
 
   return (
-    <Card sx={{ width: "25%", margin: "auto" }}>
+    <Card
+      sx={{
+        width: "25%",
+        margin: "auto",
+        boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
+        padding: '1rem'
+      }}
+    >
       <CardContent>
         <Typography variant="h5" component="div">
           Login
