@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 const containerStyle = {
   width: "100%",
+  height: "450px",
   padding: "1.5rem",
   position: "absolute",
   top: "75px",

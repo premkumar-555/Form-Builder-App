@@ -16,6 +16,7 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Logout from "../logout/Logout";
 import Profile from "../UserProfile/Profile";
+import { useNavigate } from "react-router-dom";
 import {
   getAuth,
   signInWithPopup,
@@ -30,6 +31,7 @@ import { useDispatch } from "react-redux";
 
 const drawerWidth = 240;
 const navItems = [
+  { name: "Home", path: "/" },
   { name: "Create form", path: "create_form" },
   { name: "Profile", path: "profile" },
   { name: "Logout", path: "logout" },
@@ -42,22 +44,23 @@ function NavBar(props) {
   const element = React.useRef("");
   const auth = getAuth(firebase);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
   };
   const handleClicks = (value) => {
     switch (value) {
-      case "create_form":
-        navigate(item?.path);
+      case "logout":
+        setOpen(true);
+        element.current = <Logout setOpen={setOpen} signOut={sinOut} />;
         break;
       case "profile":
         setOpen(true);
         element.current = <Profile setOpen={setOpen} />;
         break;
       default:
-        setOpen(true);
-        element.current = <Logout setOpen={setOpen} signOut={sinOut} />;
+        navigate(value);
         break;
     }
   };
