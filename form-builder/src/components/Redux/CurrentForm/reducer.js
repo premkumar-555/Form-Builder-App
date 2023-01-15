@@ -43,11 +43,14 @@ export const currentFormReducer = (state = initState, { type, payload }) => {
     case UPDATE_FIELD:
       state = {
         ...state,
-        fields: state.fields.map((ele) => ele?.fieldName === payload.?fieldName ? {...payload} : ele)
+        fields: state.fields.map((ele) =>
+          ele?.fieldName === payload?.fieldName ? { ...payload } : ele
+        ),
       };
       return state;
       break;
     default:
+      return state;
       break;
   }
 };
