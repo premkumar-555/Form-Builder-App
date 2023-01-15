@@ -9,6 +9,7 @@ export const containerStyle = {
   display: "flex",
   flexDirection: "column",
   justifyContent: "space-between",
+  gap: '5px',
   alignItems: "center",
 };
 const RightOutput = () => {
