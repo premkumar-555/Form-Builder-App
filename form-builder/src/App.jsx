@@ -17,7 +17,7 @@ const containerStyle = {
   top: "75px",
   left: "0px",
   right: "0px",
-  border: "1px solid black",
+  // border: "1px solid black",
 };
 function App() {
   const navigate = useNavigate();
